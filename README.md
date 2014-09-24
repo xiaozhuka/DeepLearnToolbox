@@ -1,4 +1,6 @@
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rasmusbergpalm/deeplearntoolbox/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
 DeepLearnToolbox
 ================
 
@@ -153,7 +155,11 @@ Example: Convolutional Neural Nets
 ---------------------
 ```matlab
 
-function test_example_CNN
+%function test_example_CNN
+clear all; close all; clc;  
+addpath('../data');  
+addpath('../util'); 
+
 load mnist_uint8;
 
 train_x = double(reshape(train_x',28,28,60000))/255;
@@ -164,7 +170,9 @@ test_y = double(test_y');
 %% ex1 Train a 6c-2s-12c-2s Convolutional neural network 
 %will run 1 epoch in about 200 second and get around 11% error. 
 %With 100 epochs you'll get around 1.2% error
+
 rand('state',0)
+
 cnn.layers = {
     struct('type', 'i') %input layer
     struct('type', 'c', 'outputmaps', 6, 'kernelsize', 5) %convolution layer
@@ -172,19 +180,19 @@ cnn.layers = {
     struct('type', 'c', 'outputmaps', 12, 'kernelsize', 5) %convolution layer
     struct('type', 's', 'scale', 2) %subsampling layer
 };
+
+
+opts.alpha = 1;%学习速率
+opts.batchsize = 50;%每次挑出一个batchsize的batch来训练，并调整一次权值，而不是所有样本都输入了才调整一次
+opts.numepochs = 1;%训练次数
+
 cnn = cnnsetup(cnn, train_x, train_y);
-
-opts.alpha = 1;
-opts.batchsize = 50;
-opts.numepochs = 1;
-
 cnn = cnntrain(cnn, train_x, train_y, opts);
 
 [er, bad] = cnntest(cnn, test_x, test_y);
 
 %plot mean squared error
 figure; plot(cnn.rL);
-
 assert(er<0.12, 'Too big error');
 
 ```
@@ -291,8 +299,4 @@ assert(er < 0.1, 'Too big error');
 
 ```
 
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rasmusbergpalm/deeplearntoolbox/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
