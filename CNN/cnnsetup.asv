@@ -14,9 +14,9 @@ for l = 1 : numel(net.layers)   %  layer
         mapsize = mapsize / net.layers{l}.scale;
         % 下面语句确保mapsize为整数
         assert(all(floor(mapsize)==mapsize), ['Layer ' num2str(l) ' size must be integer. Actual: ' num2str(mapsize)]);
-%         for j = 1 : inputmaps%上一层特征图数
-%             net.layers{l}.b{j} = 0;%将偏置初始化为0
-%         end
+        for j = 1 : inputmaps%上一层特征图数
+            net.layers{l}.b{j} = 0;%将偏置初始化为0
+        end
     end
     if strcmp(net.layers{l}.type, 'c') % 表示卷积层
         % 旧的mapsize保存的是上一层的特征map的大小，那么如果卷积核的移动步长是1，那用
@@ -64,7 +64,7 @@ end
 % fvnum 是输出层的前面一层的神经元个数
 fvnum = prod(mapsize) * inputmaps;
 % onum 是标签的个数，也就是输出层神经元的个数。你要分多少个类，自然就有多少个输出神经元
-% 需要注意的是输出y的行数表示输出类别数，列数表示样本个数，y是一个稀疏矩阵
+% 需要注意的是
 onum = size(y, 1);
 % fftb表示输出层偏置 fftW表示输出层的权重
 net.ffb = zeros(onum, 1);

@@ -26,8 +26,8 @@ cnn.layers = {
 
 
 opts.alpha = 1;%学习速率
-opts.batchsize = 50;%每次挑出一个batchsize的batch来训练，并调整一次权值，而不是所有样本都输入了才调整一次
-opts.numepochs = 1;%训练次数
+opts.batchsize = 50;%
+opts.numepochs = 1;
 
 cnn = cnnsetup(cnn, train_x, train_y);
 cnn = cnntrain(cnn, train_x, train_y, opts);

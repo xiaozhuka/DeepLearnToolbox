@@ -52,7 +52,7 @@ end
 %%  calc gradients
 % 这里与 Notes on Convolutional Neural Networks 中不同，这里的 子采样 层没有参数，也没有  
 % 激活函数，所以在子采样层是没有需要求解的参数的？权重不需要求解？
-% 是不是可以这样理解：子采样层只是进行降采样处理，采用的是均匀采样，而不是权重采样，那为什么setup的时候才初始化子采样层的b呢
+% 是不是可以这样理解：子采样层只是进行降采样处理，采用的是均匀采样，而不是权重
 for l = 2 : n
     if strcmp(net.layers{l}.type, 'c') % 对于卷积层  
         for j = 1 : numel(net.layers{l}.a)
